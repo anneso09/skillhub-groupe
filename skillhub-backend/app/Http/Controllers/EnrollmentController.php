@@ -6,6 +6,7 @@ use App\Models\Enrollment;
 use App\Models\Formation;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Services\ActivityLogService;
 
 class EnrollmentController extends Controller
 {
@@ -31,6 +32,11 @@ class EnrollmentController extends Controller
             'utilisateur_id' => $user->id,
             'formation_id'   => $formationId,
             'progression'    => 0,
+        ]);
+
+        (new ActivityLogService())->log('course_enrollment', [
+            'user_id'   => $user->id,
+            'course_id' => (int) $formationId,
         ]);
 
         return response()->json([

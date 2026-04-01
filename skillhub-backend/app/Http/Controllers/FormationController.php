@@ -6,6 +6,7 @@ use App\Models\Formation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Services\ActivityLogService;
 
 class FormationController extends Controller
 {
@@ -43,6 +44,11 @@ class FormationController extends Controller
 
         $formation->increment('nombre_vues');
 
+        (new ActivityLogService())->log('course_view', [
+            'course_id' => (int) $id,
+            'user_id'   => optional(JWTAuth::user())->id,
+        ]);
+
         return response()->json($formation);
     }
 
@@ -67,6 +73,11 @@ class FormationController extends Controller
             'categorie'    => $request->categorie,
             'niveau'       => $request->niveau,
             'formateur_id' => $user->id,
+        ]);
+
+        (new ActivityLogService())->log('course_created', [
+            'course_id'  => $formation->id,
+            'created_by' => $user->id,
         ]);
 
         return response()->json([
@@ -102,7 +113,16 @@ class FormationController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
+        $oldValues = $formation->only(['titre', 'description', 'categorie', 'niveau']);
         $formation->update($request->only(['titre', 'description', 'categorie', 'niveau']));
+        $newValues = $formation->only(['titre', 'description', 'categorie', 'niveau']);
+
+        (new ActivityLogService())->log('course_updated', [
+            'course_id'  => (int) $id,
+            'updated_by' => $user->id,
+            'old_values' => $oldValues,
+            'new_values' => $newValues,
+        ]);
 
         return response()->json([
             'message'   => 'Formation mise à jour',
@@ -126,6 +146,12 @@ class FormationController extends Controller
             ], 403);
         }
 
+        (new ActivityLogService())->log('course_deleted', [
+            'course_id'  => (int) $id,
+            'deleted_by' => $user->id,
+            'titre'      => $formation->titre,
+        ]);
+        
         $formation->delete();
 
         return response()->json(['message' => 'Formation supprimée']);
