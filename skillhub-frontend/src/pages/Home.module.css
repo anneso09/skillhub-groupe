@@ -1,7 +1,7 @@
 /* ── HERO ── */
 .hero {
   padding: 72px 48px 56px;
-  background: linear-gradient(160deg, #1C1033 0%, #2a1a4e 55%, #1C1033 100%);
+  background: linear-gradient(160deg, #1c1033 0%, #2a1a4e 55%, #1c1033 100%);
   position: relative;
   overflow: hidden;
 }
@@ -39,7 +39,7 @@
   padding: 5px 14px;
   border-radius: var(--radius-full);
   background: rgba(45, 138, 110, 0.25);
-  color: #5DCAA5;
+  color: #5dcaa5;
   font-weight: 500;
   margin-bottom: 20px;
   border: 1px solid rgba(45, 138, 110, 0.4);
@@ -81,9 +81,12 @@
   border: none;
   cursor: pointer;
   transition: opacity 0.15s;
+  font-weight: 700;
 }
 
-.btnHeroPrimary:hover { opacity: 0.88; }
+.btnHeroPrimary:hover {
+  opacity: 0.88;
+}
 
 .btnHeroSecondary {
   font-size: 14px;
@@ -97,7 +100,9 @@
   transition: border-color 0.15s;
 }
 
-.btnHeroSecondary:hover { border-color: var(--color-white); }
+.btnHeroSecondary:hover {
+  border-color: var(--color-white);
+}
 
 /* ── STATS BAR ── */
 .statsBar {
@@ -114,7 +119,9 @@
   border-right: 1px solid var(--color-border-light);
 }
 
-.statItem:last-child { border-right: none; }
+.statItem:last-child {
+  border-right: none;
+}
 
 .statNumber {
   font-size: 26px;
@@ -122,7 +129,9 @@
   color: var(--color-dark);
 }
 
-.statNumberGreen { color: var(--color-primary); }
+.statNumberGreen {
+  color: var(--color-primary);
+}
 
 .statLabel {
   font-size: 12px;
@@ -131,10 +140,19 @@
 }
 
 /* ── SECTIONS COMMUNES ── */
-.sectionGreen { padding: 72px 48px; background: #F0FAF5; }
-.sectionWhite { padding: 72px 48px; background: var(--color-white); }
+.sectionGreen {
+  padding: 72px 48px;
+  background: #f0faf5;
+}
+.sectionWhite {
+  padding: 72px 48px;
+  background: var(--color-white);
+}
 
-.sectionHeader { text-align: center; margin-bottom: 48px; }
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 48px;
+}
 
 .sectionBadge {
   display: inline-block;
@@ -149,13 +167,13 @@
 
 .sectionBadgeGreen {
   background: var(--color-white);
-  color: var(--color-primary);
+  color: #1a6b4a; /* plus foncé que #2D8A6E */
   border: 1px solid var(--color-primary-border);
 }
 
 .sectionBadgeGreenSolid {
   background: var(--color-primary-light);
-  color: var(--color-primary);
+  color: #1a6b4a;
 }
 
 .sectionTitle {
@@ -232,7 +250,7 @@
 }
 
 .avantageCardLight {
-  background: #F0FAF5;
+  background: #f0faf5;
   border: 1px solid var(--color-primary-border);
 }
 
@@ -311,16 +329,24 @@
   margin-bottom: 3px;
 }
 
-.avantageItemTitleLight { color: var(--color-dark); }
-.avantageItemTitleDark  { color: var(--color-white); }
+.avantageItemTitleLight {
+  color: var(--color-dark);
+}
+.avantageItemTitleDark {
+  color: var(--color-white);
+}
 
 .avantageItemDesc {
   font-size: 12px;
   line-height: 1.55;
 }
 
-.avantageItemDescLight { color: var(--color-text-muted); }
-.avantageItemDescDark  { color: rgba(255, 255, 255, 0.55); }
+.avantageItemDescLight {
+  color: var(--color-text-muted);
+}
+.avantageItemDescDark {
+  color: rgba(255, 255, 255, 0.55);
+}
 
 .btnAvantage {
   margin-top: 28px;
@@ -335,9 +361,15 @@
   transition: opacity 0.15s;
 }
 
-.btnAvantage:hover { opacity: 0.88; }
-.btnAvantageGreen  { background: var(--color-primary); }
-.btnAvantageOrange { background: var(--color-accent); }
+.btnAvantage:hover {
+  opacity: 0.88;
+}
+.btnAvantageGreen {
+  background: var(--color-primary);
+}
+.btnAvantageOrange {
+  background: var(--color-accent);
+}
 
 /* ── VALEURS ── */
 .valeursGrid {
@@ -356,9 +388,21 @@
   border: 1px solid var(--color-dark-2);
 }
 
-.valeurEmoji   { font-size: 32px; margin-bottom: 14px; }
-.valeurTitle   { font-size: 14px; font-weight: 700; color: var(--color-white); margin-bottom: 8px; }
-.valeurDesc    { font-size: 12px; color: rgba(255, 255, 255, 0.55); line-height: 1.6; }
+.valeurEmoji {
+  font-size: 32px;
+  margin-bottom: 14px;
+}
+.valeurTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-white);
+  margin-bottom: 8px;
+}
+.valeurDesc {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+}
 
 /* ── CATALOGUE ── */
 .catalogueHeader {
@@ -383,7 +427,9 @@
   flex-direction: column;
 }
 
-.formationCardBody  { padding: 20px 20px 0; }
+.formationCardBody {
+  padding: 20px 20px 0;
+}
 .formationCardFooter {
   padding: 16px 20px;
   margin-top: auto;
@@ -445,19 +491,25 @@
   transition: opacity 0.15s;
 }
 
-.btnVoirDetail:hover { opacity: 0.85; }
+.btnVoirDetail:hover {
+  opacity: 0.85;
+}
 
 .btnVoirTout {
   font-size: 13px;
   padding: 10px 22px;
   border-radius: 8px;
   background: transparent;
-  color: var(--color-primary);
+  color: #1a6b4a;
   font-weight: 600;
-  border: 2px solid var(--color-primary);
+  border: 2px solid;
+  border-color: #1a6b4a;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
+
 
 .btnVoirTout:hover {
   background: var(--color-primary);
@@ -467,12 +519,21 @@
 /* ── CTA BANNER ── */
 .ctaBanner {
   padding: 64px 48px;
-  background: linear-gradient(135deg, #1C1033, #2a1a4e);
+  background: linear-gradient(135deg, #1c1033, #2a1a4e);
   text-align: center;
 }
 
-.ctaTitle    { font-size: 30px; font-weight: 700; color: var(--color-white); margin: 0 0 12px; }
-.ctaSubtitle { font-size: 15px; color: rgba(255, 255, 255, 0.65); margin: 0 0 28px; }
+.ctaTitle {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--color-white);
+  margin: 0 0 12px;
+}
+.ctaSubtitle {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 0 28px;
+}
 
 .ctaActions {
   display: flex;
@@ -493,7 +554,9 @@
   transition: opacity 0.15s;
 }
 
-.btnCtaPrimary:hover { opacity: 0.88; }
+.btnCtaPrimary:hover {
+  opacity: 0.88;
+}
 
 .btnCtaSecondary {
   font-size: 14px;
@@ -507,7 +570,9 @@
   transition: border-color 0.15s;
 }
 
-.btnCtaSecondary:hover { border-color: var(--color-white); }
+.btnCtaSecondary:hover {
+  border-color: var(--color-white);
+}
 
 /* ── FOOTER ── */
 .footer {
@@ -557,7 +622,9 @@
   transition: color 0.15s;
 }
 
-.footerLink:hover { color: var(--color-white); }
+.footerLink:hover {
+  color: var(--color-white);
+}
 
 .footerBottom {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -569,13 +636,40 @@
 
 .footerCopy {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.6); /* augmente l'opacité */
 }
 
 /* ── BADGE NIVEAU ── */
-.badgeDebutant      { display: inline-block; font-size: 11px; padding: 4px 12px; border-radius: var(--radius-full); background: var(--color-debutant-bg);      color: var(--color-debutant-text);      font-weight: 600; margin-bottom: 12px; }
-.badgeIntermediaire { display: inline-block; font-size: 11px; padding: 4px 12px; border-radius: var(--radius-full); background: var(--color-intermediaire-bg); color: var(--color-intermediaire-text); font-weight: 600; margin-bottom: 12px; }
-.badgeAvance        { display: inline-block; font-size: 11px; padding: 4px 12px; border-radius: var(--radius-full); background: var(--color-avance-bg);        color: var(--color-avance-text);        font-weight: 600; margin-bottom: 12px; }
+.badgeDebutant {
+  display: inline-block;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-debutant-bg);
+  color: var(--color-debutant-text);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.badgeIntermediaire {
+  display: inline-block;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-intermediaire-bg);
+  color: var(--color-intermediaire-text);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.badgeAvance {
+  display: inline-block;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-avance-bg);
+  color: var(--color-avance-text);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
@@ -583,9 +677,13 @@
     padding: 48px 24px 40px;
   }
 
-  .heroTitle { font-size: 32px; }
+  .heroTitle {
+    font-size: 32px;
+  }
 
-  .statsBar { flex-wrap: wrap; }
+  .statsBar {
+    flex-wrap: wrap;
+  }
 
   .statItem {
     flex: 1 1 50%;
@@ -629,13 +727,21 @@
     gap: 24px;
   }
 
-  .ctaBanner { padding: 48px 24px; }
-  .ctaTitle  { font-size: 24px; }
+  .ctaBanner {
+    padding: 48px 24px;
+  }
+  .ctaTitle {
+    font-size: 24px;
+  }
 }
 
 @media (max-width: 480px) {
-  .hero { padding: 36px 16px 32px; }
-  .heroTitle { font-size: 26px; }
+  .hero {
+    padding: 36px 16px 32px;
+  }
+  .heroTitle {
+    font-size: 26px;
+  }
 
   .heroActions {
     flex-direction: column;
@@ -647,7 +753,9 @@
     text-align: center;
   }
 
-  .statItem { flex: 1 1 100%; }
+  .statItem {
+    flex: 1 1 100%;
+  }
 
   .sectionGreen,
   .sectionWhite {
