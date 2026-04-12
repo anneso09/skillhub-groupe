@@ -53,7 +53,7 @@ export default function DashboardFormateur() {
 
   // Stats calculées
   const totalApprenants = formations.reduce((acc, f) => acc + (f.enrollments_count ?? 0), 0);
-  const totalVues       = formations.reduce((acc, f) => acc + (f.nombre_vues ?? f.nombre_de_vues ?? 0), 0);
+  const totalVues       = formations.reduce((acc, f) => acc + (f.nombre_vues ?? f.nombre_vues ?? 0), 0);
 
   const prenom = user?.prenom ?? user?.name ?? '';
 
@@ -135,7 +135,7 @@ export default function DashboardFormateur() {
                       <div className={styles.cardStatLabel}>Apprenants</div>
                     </div>
                     <div className={styles.cardStat}>
-                      <div className={styles.cardStatNum}>{f.nombre_vues ?? f.nombre_de_vues ?? 0}</div>
+                      <div className={styles.cardStatNum}>{f.nombre_vues ?? f.nombre_vues ?? 0}</div>
                       <div className={styles.cardStatLabel}>Vues</div>
                     </div>
                     <div className={styles.cardStat}>

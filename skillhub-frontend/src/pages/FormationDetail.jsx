@@ -185,7 +185,7 @@ export default function FormationDetail({ onOpenLogin }) {
                 <div>
                   <div className={styles.heroMetaLabel}>Vues</div>
                   <div className={styles.heroMetaValue}>
-                    {formation.nombre_de_vues ?? 0} vues
+                    {formation.nombre_vues ?? 0} vues
                   </div>
                 </div>
               </div>
@@ -334,7 +334,7 @@ export default function FormationDetail({ onOpenLogin }) {
               </div>
               <div className={styles.formateurStat}>
                 <div className={styles.formateurStatNum}>
-                  {formation.nombre_de_vues ?? 0}
+                  {formation.nombre_vues ?? 0}
                 </div>
                 <div className={styles.formateurStatLabel}>Vues</div>
               </div>

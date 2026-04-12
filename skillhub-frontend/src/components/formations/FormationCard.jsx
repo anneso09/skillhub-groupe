@@ -26,7 +26,7 @@ export default function FormationCard({ formation }) {
         </div>
         <div className={styles.cardMeta}>
           <span>👤 {formation.enrollments_count ?? 0}</span>
-          <span>👁 {formation.nombre_de_vues ?? 0}</span>
+          <span>👁 {formation.nombre_vues ?? 0}</span>
         </div>
         <button
           className={styles.btnDetail}
