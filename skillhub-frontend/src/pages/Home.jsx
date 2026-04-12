@@ -84,19 +84,19 @@ export default function Home({ onOpenLogin, onOpenRegister }) {
       {/* ── STATS BAR ── */}
       <div className={styles.statsBar}>
         <div className={styles.statItem}>
-          <div className={styles.statNumber}>120+</div>
+          <p className={styles.statNumber}>120+</p>
           <div className={styles.statLabel}>Formations disponibles</div>
         </div>
         <div className={styles.statItem}>
-          <div className={styles.statNumber}>2 400</div>
+          <p className={styles.statNumber}>2 400</p>
           <div className={styles.statLabel}>Apprenants actifs</div>
         </div>
         <div className={styles.statItem}>
-          <div className={styles.statNumber}>48</div>
+          <p className={styles.statNumber}>48</p>
           <div className={styles.statLabel}>Formateurs experts</div>
         </div>
         <div className={styles.statItem}>
-          <div className={`${styles.statNumber} ${styles.statNumberGreen}`}>100%</div>
+          <p className={`${styles.statNumber} ${styles.statNumberGreen}`}>100%</p>
           <div className={styles.statLabel}>Gratuit</div>
         </div>
       </div>
@@ -220,7 +220,7 @@ export default function Home({ onOpenLogin, onOpenRegister }) {
             <div key={f.id} className={styles.formationCard}>
               <div className={styles.formationCardBody}>
                 <span className={getBadgeClass(f.niveau, styles)}>{f.niveau}</span>
-                <h4 className={styles.formationTitle}>{f.titre}</h4>
+                <h3 className={styles.formationTitle}>{f.titre}</h3>
                 <p className={styles.formationDesc}>Formation dispensée par {f.auteur}</p>
               </div>
               <div className={styles.formationCardFooter}>

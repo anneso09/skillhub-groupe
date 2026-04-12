@@ -39,46 +39,47 @@ export default function App() {
             onSwitchToLogin={() => setModal("login")}
           />
         )}
+        <main>
+          <Routes>
+            {/* Home reçoit les handlers pour ouvrir les modals */}
+            <Route
+              path="/"
+              element={
+                <Home onOpenLogin={openLogin} onOpenRegister={openRegister} />
+              }
+            />
+            <Route path="/formations" element={<Formations />} />
+            <Route
+              path="/formation/:id"
+              element={<FormationDetail onOpenLogin={openLogin} />}
+            />
 
-        <Routes>
-          {/* Home reçoit les handlers pour ouvrir les modals */}
-          <Route
-            path="/"
-            element={
-              <Home onOpenLogin={openLogin} onOpenRegister={openRegister} />
-            }
-          />
-          <Route path="/formations" element={<Formations />} />
-          <Route
-            path="/formation/:id"
-            element={<FormationDetail onOpenLogin={openLogin} />}
-          />
-
-          <Route
-            path="/dashboard/apprenant"
-            element={
-              <ProtectedRoute role="apprenant">
-                <DashboardApprenant />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/apprendre/:id"
-            element={
-              <ProtectedRoute role="apprenant">
-                <SuiviFormation />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/formateur"
-            element={
-              <ProtectedRoute role="formateur">
-                <DashboardFormateur />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
+            <Route
+              path="/dashboard/apprenant"
+              element={
+                <ProtectedRoute role="apprenant">
+                  <DashboardApprenant />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/apprendre/:id"
+              element={
+                <ProtectedRoute role="apprenant">
+                  <SuiviFormation />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/formateur"
+              element={
+                <ProtectedRoute role="formateur">
+                  <DashboardFormateur />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </main>
       </BrowserRouter>
     </AuthProvider>
   );
