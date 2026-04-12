@@ -43,7 +43,7 @@ export default function Formations() {
       return matchCat && matchNiveau && matchSearch;
     });
     if (filtres.tri === 'vues') {
-      result = [...result].sort((a, b) => (b.nombre_de_vues ?? 0) - (a.nombre_de_vues ?? 0));
+      result = [...result].sort((a, b) => (b.nombre_vues ?? 0) - (a.nombre_vues ?? 0));
     } else if (filtres.tri === 'recent') {
       result = [...result].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
     } else {
