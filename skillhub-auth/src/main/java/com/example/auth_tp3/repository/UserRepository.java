@@ -1,9 +1,12 @@
 package com.example.auth_tp3.repository;
 
-import com.example.auth_tp3.entity.User;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import java.util.Optional;
+
+import com.example.auth_tp3.entity.User;
+
 
 /**
  * Repository pour accéder aux données des utilisateurs dans MySQL.
