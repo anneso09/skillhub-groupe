@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    // Spring Boot va générer automatiquement les méthodes save, findAll, etc.
+    User findByEmail(String email);
 }
