@@ -19,7 +19,7 @@ import com.example.auth_tp3.service.JwtService;
 import io.jsonwebtoken.Claims;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
 

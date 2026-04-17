@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import api from "../../api/axios";
+import api, { authApi } from "../../api/axios";
 import styles from "./RegisterModal.module.css";
 
 export default function RegisterModal({ onClose, onSwitchToLogin }) {
@@ -32,29 +32,27 @@ export default function RegisterModal({ onClose, onSwitchToLogin }) {
     }
     setLoading(true);
     setError("");
-    try {
-      // 1. Inscription
-      await api.post("/register", form);
-      // 2. Connexion automatique après inscription
-      const user = await login(form.email, form.password);
-      onClose();
-      if (user.role === "formateur") {
-        navigate("/dashboard/formateur");
-      } else {
-        navigate("/dashboard/apprenant");
-      }
-    } catch (err) {
-      const errors = err.response?.data?.errors;
-      if (errors) {
-        // Affiche la première erreur de validation Laravel
-        const firstError = Object.values(errors)[0][0];
-        setError(firstError);
-      } else {
-        setError(err.response?.data?.message || "Une erreur est survenue.");
-      }
-    } finally {
-      setLoading(false);
+try {
+
+    await authApi.post("auth/register", { 
+    email: form.email, 
+    password: form.password 
+}); 
+
+    const user = await login(form.email, form.password);
+    
+    onClose();
+    navigate("/dashboard/apprenant");
+
+} catch (err) {
+    if (err.response?.status === 409) {
+        setError("Cet email est déjà utilisé.");
+    } else {
+        setError(err.response?.data?.message || "Erreur de connexion au serveur Java.");
     }
+} finally {
+    setLoading(false);
+}
   };
 
   return (
