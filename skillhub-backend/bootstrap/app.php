@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+<<<<<<< Updated upstream
 
     $middleware->alias([
         'role' => \App\Http\Middleware\CheckRole::class,
@@ -25,6 +26,12 @@ return Application::configure(basePath: dirname(__DIR__))
 $middleware->redirectGuestsTo(function (Request $request) {
     return null;
 });
+=======
+        $middleware->alias([
+            'role' => \App\Http\Middleware\CheckRole::class,
+            'jwt.verify' => \App\Http\Middleware\JwtVerifyMiddleware::class,
+        ]);
+>>>>>>> Stashed changes
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

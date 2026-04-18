@@ -62,13 +62,14 @@ class AuthController extends Controller
         ]);
     }
 
-    public function profile()
-    {
-        $user = JWTAuth::user();
-
-        return response()->json($user);
-    }
-
+public function profile(Request $request)
+{
+    return response()->json([
+        'email' => $request->auth_user_email,
+        'role'  => $request->auth_user_role,
+        'id'    => $request->auth_user_id,
+    ]);
+}
     public function logout()
     {
         JWTAuth::invalidate(JWTAuth::getToken());

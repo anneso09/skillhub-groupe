@@ -4,13 +4,18 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CheckRole
 {
     public function handle(Request $request, Closure $next, string $role)
     {
+<<<<<<< Updated upstream
        $user = (object) [     'role' => $request->auth_user_role ];
+=======
+        $user = (object) [
+            'role' => $request->auth_user_role
+        ];
+>>>>>>> Stashed changes
 
         if (!$user || $user->role !== $role) {
             return response()->json([
