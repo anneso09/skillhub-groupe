@@ -6,75 +6,60 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
+// ─────────────────────────────────────────────────────────────────
+// AuthController.php
+// Rôle : gère les actions liées au profil utilisateur côté Laravel
+//
+// ⚠️  Dans l'architecture SkillHub V2, l'inscription et la
+//     connexion sont gérées par Spring Boot (port 8080).
+//     Laravel ne gère plus que :
+//       - GET  /api/profile  → retourner les infos du user connecté
+//       - POST /api/logout   → déconnexion côté client
+//
+// L'identité de l'utilisateur est injectée par le middleware
+// JwtVerifyMiddleware qui appelle Spring Boot pour valider
+// le token avant chaque requête protégée
+// ─────────────────────────────────────────────────────────────────
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    // ─────────────────────────────────────────────────────────
+    // GET /api/profile
+    // Route protégée par le middleware jwt.verify
+    //
+    // JwtVerifyMiddleware a déjà validé le token JWT et injecté
+    // les données de l'utilisateur dans la requête :
+    //   $request->auth_user_id    → ID de l'utilisateur
+    //   $request->auth_user_email → email de l'utilisateur
+    //   $request->auth_user_role  → "apprenant" ou "formateur"
+    //
+    // On n'a pas besoin de requête BDD ici — les données
+    // viennent directement du token JWT décodé par Spring Boot
+    // ─────────────────────────────────────────────────────────
+    public function profile(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nom'      => 'required|string|max:255',
-            'prenom'   => 'required|string|max:255',
-            'email'    => 'required|email|unique:users',
-            'password' => 'required|string|min:6',
-            'role'     => 'required|in:apprenant,formateur',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        $user = User::create([
-            'nom'      => $request->nom,
-            'prenom'   => $request->prenom,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-            'role'     => $request->role,
-        ]);
-
-        $token = JWTAuth::fromUser($user);
-
         return response()->json([
-            'message' => 'Inscription réussie',
-            'user'    => $user,
-            'token'   => $token,
-        ], 201);
-    }
-
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-
-        if (!$token = JWTAuth::attempt($credentials)) {
-            return response()->json([
-                'message' => 'Email ou mot de passe incorrect'
-            ], 401);
-        }
-
-        $user = JWTAuth::user();
-
-        return response()->json([
-            'message' => 'Connexion réussie',
-            'user'    => $user,
-            'token'   => $token,
+            'id'    => $request->auth_user_id,
+            'email' => $request->auth_user_email,
+            'role'  => $request->auth_user_role,
         ]);
     }
 
-    public function profile()
-    {
-        $user = JWTAuth::user();
 
-        return response()->json($user);
-    }
-
+    // ─────────────────────────────────────────────────────────
+    // POST /api/logout
+    //
+    // JWT est stateless — il n'y a pas de session côté serveur
+    // à détruire. La déconnexion se fait uniquement côté client
+    // en supprimant le token du localStorage (géré par React).
+    //
+    // Cette route existe pour respecter le contrat REST
+    // et permettre à React d'avoir un endpoint à appeler
+    // ─────────────────────────────────────────────────────────
     public function logout()
     {
-        JWTAuth::invalidate(JWTAuth::getToken());
-
         return response()->json([
-            'message' => 'Déconnexion réussie'
+            'message' => 'Déconnexion côté client',
         ]);
     }
 }
