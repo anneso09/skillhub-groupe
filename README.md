@@ -25,20 +25,26 @@ skillhub-groupe/
 └── README.md
 
 ## Installation et Lancement
-Prérequis
+Prérequis:
+
 Docker Desktop, Git
 
 Démarrage rapide
+
 Cloner le projet :
 
 git clone https://github.com/anneso09/skillhub-groupe.git
+
 cd skillhub-groupe
+
 Configurer l'environnement :
 
 cp .env.example .env
+
 Lancer avec Docker :
 
 docker compose up --build
+
 L'application sera accessible sur http://localhost:3000.
 
 ## Qualité et Tests
@@ -48,6 +54,7 @@ La qualité de notre code est vérifiée automatiquement avec l'intégration con
 Le projet est analysé automatiquement par SonarCloud à chaque push sur les branches dev et main. L'analyse porte sur la détection de bugs, de vulnérabilités de sécurité et de "code smells".
 
 Exécuter les tests localement
+
 Backend Laravel :
 
 cd skillhub-backend && php artisan test
