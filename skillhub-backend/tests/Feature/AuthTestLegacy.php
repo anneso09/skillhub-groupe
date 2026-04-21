@@ -6,22 +6,19 @@ use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\Group;
 
 // ─────────────────────────────────────────────────────────────────
-// AuthTest.php
-// Rôle : tests d'intégration pour l'authentification
+// AuthTest.php — LEGACY V1
+// Routes /api/register et /api/login migrées vers Spring Boot (V2)
+// Cette classe est désactivée du pipeline CI (groupe "legacy")
+// La couverture CDC auth est assurée par SecuriteTest.php
 //
-// ⚠️  Ces tests testent les anciennes routes Laravel /api/register
-//     et /api/login qui sont maintenant gérées par Spring Boot.
-//     Ils sont conservés pour documenter le comportement attendu
-//     mais peuvent échouer en V2 si les routes sont commentées.
-//
-// Pour lancer : php artisan test --filter AuthTest
+// Pour lancer manuellement : php artisan test --group legacy
 // ─────────────────────────────────────────────────────────────────
-class AuthTest extends TestCase
+#[Group('legacy')]
+class AuthTestLegacy extends TestCase
 {
-    // RefreshDatabase recrée la BDD de test avant chaque test
-    // pour garantir un état propre et des tests indépendants
     use RefreshDatabase;
 
     // ─────────────────────────────────────────────────────────

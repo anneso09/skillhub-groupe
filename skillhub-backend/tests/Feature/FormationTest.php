@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use Tests\Feature\TestCase;
 use App\Models\User;
 use App\Models\Formation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -45,6 +45,7 @@ class FormationTest extends TestCase
     public function un_formateur_peut_creer_une_formation()
     {
         $formateur = User::factory()->create(['role' => 'formateur']);
+        $this->fakeSpringBoot('formateur', $formateur->id, $formateur->email);
         $token     = $this->getToken($formateur);
 
         $response = $this->postJson('/api/formations', [
@@ -83,6 +84,7 @@ class FormationTest extends TestCase
     public function un_formateur_peut_modifier_sa_formation()
     {
         $formateur = User::factory()->create(['role' => 'formateur']);
+        $this->fakeSpringBoot('formateur', $formateur->id, $formateur->email);
         $token     = $this->getToken($formateur);
 
         // Crée une formation appartenant à ce formateur
@@ -115,6 +117,7 @@ class FormationTest extends TestCase
     public function un_formateur_peut_supprimer_sa_formation()
     {
         $formateur = User::factory()->create(['role' => 'formateur']);
+        $this->fakeSpringBoot('formateur', $formateur->id, $formateur->email);
         $token     = $this->getToken($formateur);
 
         $formation = Formation::factory()->create([

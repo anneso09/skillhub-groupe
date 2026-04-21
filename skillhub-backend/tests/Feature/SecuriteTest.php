@@ -2,10 +2,9 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use Tests\Feature\TestCase;
 use App\Models\User;
 use App\Models\Formation;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -18,15 +17,14 @@ use PHPUnit\Framework\Attributes\Test;
 //   - mauvais rôle → 403
 //   - formateur modifie la formation d'un autre → 403
 //
-// Ce sont les tests les plus importants du CDC —
-// ils valident que la sécurité fonctionne correctement
+// Hérite de Tests\Feature\TestCase qui fournit :
+//   - RefreshDatabase (BDD SQLite remise à zéro entre chaque test)
+//   - fakeSpringBoot() (simule les réponses de Spring Boot)
 //
 // Pour lancer : php artisan test --filter SecuriteTest
 // ─────────────────────────────────────────────────────────────────
 class SecuriteTest extends TestCase
 {
-    use RefreshDatabase;
-
     private function getToken(User $user): string
     {
         return JWTAuth::fromUser($user);
@@ -36,11 +34,12 @@ class SecuriteTest extends TestCase
     // ─────────────────────────────────────────────────────────
     // Test 1 : sans token → 401
     // Un visiteur non connecté ne peut pas créer de formation
+    // Aucun fakeSpringBoot() ici — le middleware bloque
+    // avant même d'appeler Spring Boot (header manquant)
     // ─────────────────────────────────────────────────────────
     #[Test]
     public function un_utilisateur_non_authentifie_ne_peut_pas_creer_une_formation()
     {
-        // Requête sans header Authorization
         $response = $this->postJson('/api/formations', [
             'titre'       => 'Formation test',
             'description' => 'Description test',
@@ -55,13 +54,15 @@ class SecuriteTest extends TestCase
 
     // ─────────────────────────────────────────────────────────
     // Test 2 : apprenant tente de créer une formation → 403
-    // Vérifie que le middleware role:formateur fonctionne
+    // Vérifie que le middleware role:formateur bloque
+    // un utilisateur avec le rôle apprenant
     // ─────────────────────────────────────────────────────────
     #[Test]
     public function un_apprenant_ne_peut_pas_creer_une_formation()
     {
         $apprenant = User::factory()->create(['role' => 'apprenant']);
-        $token     = $this->getToken($apprenant);
+        $this->fakeSpringBoot('apprenant', $apprenant->id, $apprenant->email);
+        $token = $this->getToken($apprenant);
 
         $response = $this->postJson('/api/formations', [
             'titre'       => 'Formation test',
@@ -79,16 +80,18 @@ class SecuriteTest extends TestCase
     // ─────────────────────────────────────────────────────────
     // Test 3 : formateur modifie la formation d'un autre → 403
     // Vérifie la vérification de propriété dans update()
-    // C'est une deuxième ligne de défense indépendante
-    // du middleware — même un formateur valide ne peut
-    // pas modifier les formations des autres
+    // Spring Boot identifie formateur2 — mais la formation
+    // appartient à formateur1 → 403 dans le controller
     // ─────────────────────────────────────────────────────────
     #[Test]
     public function un_formateur_ne_peut_pas_modifier_la_formation_dun_autre()
     {
         $formateur1 = User::factory()->create(['role' => 'formateur']);
         $formateur2 = User::factory()->create(['role' => 'formateur']);
-        $token2     = $this->getToken($formateur2);
+
+        // Spring Boot identifie formateur2 (celui qui fait la requête)
+        $this->fakeSpringBoot('formateur', $formateur2->id, $formateur2->email);
+        $token2 = $this->getToken($formateur2);
 
         // Formation appartenant à formateur1
         $formation = Formation::factory()->create([
@@ -123,14 +126,15 @@ class SecuriteTest extends TestCase
 
     // ─────────────────────────────────────────────────────────
     // Test 5 : apprenant accède au dashboard formateur → 403
-    // Vérifie que /api/formateur/formations est bien
-    // réservé aux formateurs
+    // Vérifie que /api/formateur/formations est réservé
+    // aux formateurs uniquement
     // ─────────────────────────────────────────────────────────
     #[Test]
     public function un_apprenant_ne_peut_pas_acceder_au_dashboard_formateur()
     {
         $apprenant = User::factory()->create(['role' => 'apprenant']);
-        $token     = $this->getToken($apprenant);
+        $this->fakeSpringBoot('apprenant', $apprenant->id, $apprenant->email);
+        $token = $this->getToken($apprenant);
 
         $response = $this->getJson('/api/formateur/formations', [
             'Authorization' => "Bearer $token",
