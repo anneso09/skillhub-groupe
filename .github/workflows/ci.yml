@@ -27,7 +27,7 @@ jobs:
 
       - name: Install frontend dependencies
         working-directory: skillhub-frontend
-        run: npm ci
+        run: npm install
 
       - name: Lint frontend
         working-directory: skillhub-frontend
