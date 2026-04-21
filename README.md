@@ -17,11 +17,17 @@ MongoDB : Données non-relationnelles (Logs, contenus dynamiques).
 ## Structure du Dépôt
 skillhub-groupe/
 ├── .github/workflows/      # Pipelines CI/CD (GitHub Actions)
+
 ├── skillhub-frontend/      # Application React SPA
+
 ├── skillhub-backend/       # API Métier Laravel
+
 ├── skillhub-auth/          # Service d'authentification Spring Boot
+
 ├── docker-compose.yml      # Orchestration des conteneurs
+
 ├── .env.example            # Modèle de configuration
+
 └── README.md
 
 ## Installation et Lancement
