@@ -1,4 +1,4 @@
-## SkillHub V2
+## SkillHub
 SkillHub est une plateforme collaborative d'apprentissage en ligne conçue pour faciliter l'échange de compétences entre utilisateurs (formateurs et apprenants). Cette version V2 repose sur une architecture micro-services pour garantir scalabilité et séparation des responsabilités.
 
 ## Stack Technique

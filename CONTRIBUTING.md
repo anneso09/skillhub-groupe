@@ -1,9 +1,9 @@
 # Comment contribuer au projet SkillHub V2
 
 ## Équipe
-- Anne-Sophie — Chef de projet, Git, CI/CD, Docker Compose
+- Anne-Sophie — Chef de projet, Git, CI/CD, Spring Boot Docker Compose
 - El-Fayed — Laravel, Dockerfiles backend
-- Thouaibat — React, Spring Boot, SonarCloud
+- Thouaibat — React, SonarCloud
 
 ## Branches
 - `main` — version finale stable, on ne pousse jamais directement dessus
