@@ -37,36 +37,11 @@ class FormationController extends Controller
     //
     // Accessible sans authentification (catalogue public)
     // ─────────────────────────────────────────────────────────
-    public function index(Request $request)
-    {
-        // with('formateur') charge le formateur en même temps
-        // que les formations — évite le problème N+1
-        // (une seule requête SQL au lieu de N+1)
-        // On ne sélectionne que id, nom, prenom pour ne pas
-        // exposer le mot de passe du formateur
-        $query = Formation::with('formateur:id,nom,prenom');
-
-        // Filtre par titre — recherche partielle (LIKE %...%)
-        if ($request->has('search')) {
-            $query->where('titre', 'like', '%' . $request->search . '%');
-        }
-
-        // Filtre par catégorie — valeur exacte
-        if ($request->has('categorie')) {
-            $query->where('categorie', $request->categorie);
-        }
-
-        // Filtre par niveau — valeur exacte
-        if ($request->has('niveau')) {
-            $query->where('niveau', $request->niveau);
-        }
-
-        // withCount('enrollments') ajoute enrollments_count
-        // à chaque formation sans charger tous les enrollments
-        $formations = $query->withCount('enrollments')->get();
-
-        return response()->json($formations);
-    }
+   public function index(Request $request)
+{ 
+    $formations = Formation::with('formateur')->get();
+return response()->json($formations);
+}
 
 
     // ─────────────────────────────────────────────────────────

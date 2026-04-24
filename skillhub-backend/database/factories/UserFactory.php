@@ -17,12 +17,12 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'nom'      => fake()->lastName(),
-            'prenom'   => fake()->firstName(),
-            'email'    => fake()->unique()->safeEmail(),
-            'password' => Hash::make('password123'),
-            'role'     => 'apprenant',
-        ];
+    'nom'      => 'Test',
+    'prenom'   => 'User',
+    'email'    => 'test' . rand(1,1000) . '@test.com',
+    'password' => Hash::make('password123'),
+    'role'     => 'apprenant',
+];
     }
 
     public function formateur(): static
