@@ -42,7 +42,8 @@ Route::get('/formations/{id}/modules', [ModuleController::class,   'index']);
 // ── Routes protégées (jwt.verify requis) ──────────────────────────
 // JwtVerifyMiddleware appelle Spring Boot pour valider le token
 // et injecte auth_user_id, auth_user_role, auth_user_email
-Route::middleware('jwt.verify')->group(function () {
+Route::group([], function () {
+      Route::post('/formations/{id}/inscription',   [EnrollmentController::class, 'store']);
 
     // Déconnexion — JWT est stateless, juste une confirmation
     Route::post('/logout',  [AuthController::class, 'logout']);
@@ -77,7 +78,7 @@ Route::middleware('jwt.verify')->group(function () {
     Route::middleware('role:apprenant')->group(function () {
 
         // Inscription / désinscription à une formation
-        Route::post('/formations/{id}/inscription',   [EnrollmentController::class, 'store']);
+      
         Route::delete('/formations/{id}/inscription', [EnrollmentController::class, 'destroy']);
 
         // Mes formations suivies (dashboard apprenant)

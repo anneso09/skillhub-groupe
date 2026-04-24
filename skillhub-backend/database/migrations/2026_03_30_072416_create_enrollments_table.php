@@ -9,21 +9,26 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+public function up(): void
 {
     Schema::create('enrollments', function (Blueprint $table) {
         $table->id();
-        
-        $table->foreignId('utilisateur_id')->constrained('users')->onDelete('cascade');
-        $table->foreignId('formation_id')->constrained('formations')->onDelete('cascade');
-        $table->unsignedInteger('progression')->default(0);
+
+        $table->foreignId('utilisateur_id')
+              ->constrained('users')
+              ->onDelete('cascade');
+
+        $table->foreignId('formation_id')
+              ->constrained('formations')
+              ->onDelete('cascade');
+
+        $table->integer('progression')->default(0);
         $table->timestamp('date_inscription')->useCurrent();
-        $table->unique(['utilisateur_id', 'formation_id']); // un apprenant ne peut s'inscrire qu'une seule fois à la même formation
+
+        $table->unique(['utilisateur_id', 'formation_id']);
+
         $table->timestamps();
     });
-    Schema::table('enrollments', function (Blueprint $table) {
-    $table->dropForeign(['utilisateur_id']);
-});
 }
 
     /**

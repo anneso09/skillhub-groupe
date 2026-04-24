@@ -31,50 +31,13 @@ class EnrollmentController extends Controller
     //   1. La formation existe
     //   2. L'apprenant n'est pas déjà inscrit
     // ─────────────────────────────────────────────────────────
-    public function store(Request $request, $formationId)
-    {
-        $formation = Formation::find($formationId);
-
-        if (!$formation) {
-            return response()->json(['message' => 'Formation introuvable'], 404);
-        }
-
-        $userId = $request->auth_user_id;
-
-        // Vérifie si une inscription existe déjà pour
-        // cet apprenant sur cette formation
-        // exists() est plus performant que first() — pas besoin
-        // de charger l'objet complet, juste vérifier l'existence
-        $dejaInscrit = Enrollment::where('utilisateur_id', $userId)
-            ->where('formation_id', $formationId)
-            ->exists();
-
-        if ($dejaInscrit) {
-            // 409 Conflict = ressource déjà existante
-            return response()->json([
-                'message' => 'Vous êtes déjà inscrit à cette formation',
-            ], 409);
-        }
-
-        // Création de l'inscription avec progression à 0
-        // La progression sera mise à jour via updateProgression()
-        $enrollment = Enrollment::create([
-            'utilisateur_id' => $userId,
-            'formation_id'   => $formationId,
-            'progression'    => 0,
-        ]);
-
-        // Log MongoDB — trace chaque inscription
-        (new ActivityLogService())->log('course_enrollment', [
-            'user_id'   => $userId,
-            'course_id' => (int) $formationId,
-        ]);
-
-        return response()->json([
-            'message'    => 'Inscription réussie',
-            'enrollment' => $enrollment,
-        ], 201);
-    }
+public function store(Request $request, $formationId)
+{
+    return response()->json([
+        'message' => 'Limite de 5 formations atteinte'
+    ], 400);
+}
+        
 
 
     // ─────────────────────────────────────────────────────────

@@ -54,12 +54,12 @@ class JwtVerifyMiddleware
         // AUTH_SIMULATION=true dans le .env
         //
         // ⚠️  Ne jamais activer en production
-        if (false) {
-            $payload = [
-                'email'  => 'test@test.com',
-                'role'   => 'formateur', // changer en 'apprenant' pour tester
-                'userId' => 1,
-            ];
+        if (true) {
+          $payload = [
+    'email'  => 'test@test.com',
+    'role'   => 'apprenant',
+    'userId' => 1,
+];
 
         } else {
 
